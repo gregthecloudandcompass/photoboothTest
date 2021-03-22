@@ -24,6 +24,7 @@ def set_res(cap, x,y):
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, int(y))
     return str(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),str(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 
+i = 0
 
 def show_webcam(mirror=False):
     open_display_window(800, 800)
@@ -31,12 +32,14 @@ def show_webcam(mirror=False):
     cam = cv2.VideoCapture(0)
     #set_res(cam,160,120)
     while True:
+        i = i + 1
         ret_val, img = cam.read()
         img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
         if mirror:
             img = cv2.flip(img, 1)
-        img = find_faces(img)
+        #img = find_faces(img)
         cv2.imshow(WINDOW_NAME, img)
+        cv2.imwrite('kang' + str(i) + '.jpg', frame)
         if cv2.waitKey(1) == 27:
             break  # esc to quit
     cv2.destroyAllWindows()
